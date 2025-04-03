@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package TensorTransmit;
+
+// The tensor transmission service definition.
+service TensorTransmit {
+  // Sends a tensor
+  rpc GetActivationFloat (Layer) returns (ActivationFloat) {}
+
+  rpc GetActivationByte (Layer) returns (ActivationByte) {}
+
+}
+
+// The request message containing the index of the layer.
+message Layer {
+  int32 layer_index = 1;
+}
+
+// The response message containing the tensor and the shape
+message ActivationFloat {
+  repeated float tensor = 1;
+  string shape_f = 2;
+}
+
+message ActivationByte {
+  bytes buffer = 1;
+  string shape_b = 2;
+  string dtype = 3;
+}
