@@ -15,6 +15,8 @@
 
 from concurrent import futures
 import logging
+
+import numpy as np
 import torch
 import grpc
 from grpc_utils.TensorTransmit import TensorTransmit_pb2
@@ -29,6 +31,13 @@ class TensorTransmit(TensorTransmit_pb2_grpc.TensorTransmitServicer):
 
     def GetActivationByte(self, request, context):
         flat_tensor = activation_list[request.layer_index].cpu().flatten().numpy()
+        if request.desired_dtype == "float16":
+            flat_tensor = flat_tensor.astype(np.float16)
+        elif request.desired_dtype == "int8":
+            flat_tensor = flat_tensor.astype(np.int8)
+        print("Transmission with raw byte ...")
+        print("desired datatype: ", request.desired_dtype)
+        print("Actual datatype: ", flat_tensor.dtype)
         flat_tensor_byte = flat_tensor.tobytes()
         tensor_shape = str(activation_list[request.layer_index].cpu().numpy().shape)
         return TensorTransmit_pb2.ActivationByte(buffer=flat_tensor_byte, shape_b=tensor_shape, dtype=str(flat_tensor.dtype))

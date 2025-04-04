@@ -10,15 +10,20 @@ package TensorTransmit;
 // The tensor transmission service definition.
 service TensorTransmit {
   // Sends a tensor
-  rpc GetActivationFloat (Layer) returns (ActivationFloat) {}
+  rpc GetActivationFloat (Layer_f) returns (ActivationFloat) {}
 
-  rpc GetActivationByte (Layer) returns (ActivationByte) {}
+  rpc GetActivationByte (Layer_b) returns (ActivationByte) {}
 
 }
 
 // The request message containing the index of the layer.
-message Layer {
+message Layer_f {
   int32 layer_index = 1;
+}
+
+message Layer_b {
+  int32 layer_index = 1;
+  string desired_dtype = 2;
 }
 
 // The response message containing the tensor and the shape

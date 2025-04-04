@@ -2,7 +2,7 @@
 
 # generate the gRPC files from proto
 python -m grpc_tools.protoc \
-  -Igrpc_utils/tensor_transmit=. \
+  -Igrpc_utils/TensorTransmit=. \
   --python_out=.. \
   --pyi_out=.. \
   --grpc_python_out=.. \

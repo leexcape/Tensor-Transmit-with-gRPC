@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.grpc_utils/TensorTransmit/TensorTransmit.proto\x12\x0eTensorTransmit\"\x1c\n\x05Layer\x12\x13\n\x0blayer_index\x18\x01 \x01(\x05\"2\n\x0f\x41\x63tivationFloat\x12\x0e\n\x06tensor\x18\x01 \x03(\x02\x12\x0f\n\x07shape_f\x18\x02 \x01(\t\"@\n\x0e\x41\x63tivationByte\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\x12\x0f\n\x07shape_b\x18\x02 \x01(\t\x12\r\n\x05\x64type\x18\x03 \x01(\t2\xae\x01\n\x0eTensorTransmit\x12N\n\x12GetActivationFloat\x12\x15.TensorTransmit.Layer\x1a\x1f.TensorTransmit.ActivationFloat\"\x00\x12L\n\x11GetActivationByte\x12\x15.TensorTransmit.Layer\x1a\x1e.TensorTransmit.ActivationByte\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.grpc_utils/TensorTransmit/TensorTransmit.proto\x12\x0eTensorTransmit\"\x1e\n\x07Layer_f\x12\x13\n\x0blayer_index\x18\x01 \x01(\x05\"5\n\x07Layer_b\x12\x13\n\x0blayer_index\x18\x01 \x01(\x05\x12\x15\n\rdesired_dtype\x18\x02 \x01(\t\"2\n\x0f\x41\x63tivationFloat\x12\x0e\n\x06tensor\x18\x01 \x03(\x02\x12\x0f\n\x07shape_f\x18\x02 \x01(\t\"@\n\x0e\x41\x63tivationByte\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\x12\x0f\n\x07shape_b\x18\x02 \x01(\t\x12\r\n\x05\x64type\x18\x03 \x01(\t2\xb2\x01\n\x0eTensorTransmit\x12P\n\x12GetActivationFloat\x12\x17.TensorTransmit.Layer_f\x1a\x1f.TensorTransmit.ActivationFloat\"\x00\x12N\n\x11GetActivationByte\x12\x17.TensorTransmit.Layer_b\x1a\x1e.TensorTransmit.ActivationByte\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,12 +32,14 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'grpc_utils.TensorTransmit.T
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'
-  _globals['_LAYER']._serialized_start=66
-  _globals['_LAYER']._serialized_end=94
-  _globals['_ACTIVATIONFLOAT']._serialized_start=96
-  _globals['_ACTIVATIONFLOAT']._serialized_end=146
-  _globals['_ACTIVATIONBYTE']._serialized_start=148
-  _globals['_ACTIVATIONBYTE']._serialized_end=212
-  _globals['_TENSORTRANSMIT']._serialized_start=215
-  _globals['_TENSORTRANSMIT']._serialized_end=389
+  _globals['_LAYER_F']._serialized_start=66
+  _globals['_LAYER_F']._serialized_end=96
+  _globals['_LAYER_B']._serialized_start=98
+  _globals['_LAYER_B']._serialized_end=151
+  _globals['_ACTIVATIONFLOAT']._serialized_start=153
+  _globals['_ACTIVATIONFLOAT']._serialized_end=203
+  _globals['_ACTIVATIONBYTE']._serialized_start=205
+  _globals['_ACTIVATIONBYTE']._serialized_end=269
+  _globals['_TENSORTRANSMIT']._serialized_start=272
+  _globals['_TENSORTRANSMIT']._serialized_end=450
 # @@protoc_insertion_point(module_scope)
