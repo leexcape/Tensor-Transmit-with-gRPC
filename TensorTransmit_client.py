@@ -30,7 +30,7 @@ def run():
     # used in circumstances in which the with statement does not fit the needs
     # of the code.
     print("Will try to grab tensor from server ...")
-    with grpc.insecure_channel("localhost:50051") as channel:
+    with grpc.insecure_channel("192.168.50.58:50051") as channel:
         stub = TensorTransmit_pb2_grpc.TensorTransmitStub(channel)
         # Transmission with tensor
         start_time = time.time()
@@ -41,7 +41,7 @@ def run():
 
         # Transmission with raw bytes
         start_time = time.time()
-        response_b = stub.GetActivationByte(TensorTransmit_pb2.Layer_b(layer_index=0, desired_dtype='int8'))
+        response_b = stub.GetActivationByte(TensorTransmit_pb2.Layer_b(layer_index=0, desired_dtype='float64'))
         latency_b = time.time() - start_time
         shape_b = tuple(int(x.strip()) for x in response_b.shape_b.strip("()").split(","))
         array_b = np.frombuffer(response_b.buffer, response_b.dtype)
@@ -50,6 +50,7 @@ def run():
     print("The Tensor is received successfully! The size of received tensor: " + response_f.shape_f)
     print("The transmission latency of tensor transmission(", tensor_f.dtype, "): ", latency_f)
     print("The transmission latency of raw bytes transmission(", tensor_b.dtype, "): ", latency_b)
+    return latency_f, latency_b
 
 
 if __name__ == "__main__":

@@ -1,16 +1,14 @@
-# This is a sample Python script.
+from TensorTransmit_client import run
+import numpy as np
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+latency_record_f = []
+latency_record_b = []
+runs = 100
 
+for i in range(runs):
+    latency_f, latency_b = run()
+    latency_record_f.append(latency_f)
+    latency_record_b.append(latency_b)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(f"The average latency (numerical data) over {runs} runs is: {np.mean(latency_record_f)}")
+print(f"The average latency (raw bytes) over {runs} runs is: {np.mean(latency_record_b)}")
