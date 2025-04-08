@@ -25,29 +25,31 @@ from grpc_utils.TensorTransmit import TensorTransmit_pb2
 from grpc_utils.TensorTransmit import TensorTransmit_pb2_grpc
 
 
-def run():
+def run(n_tensors_f=1, n_tensors_b=1, dtype="float32"):
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs
     # of the code.
     print("Will try to grab tensor from server ...")
-    with grpc.insecure_channel("192.168.50.58:50051") as channel:
+    with grpc.insecure_channel("localhost:50051") as channel:
         stub = TensorTransmit_pb2_grpc.TensorTransmitStub(channel)
         # Transmission with tensor
         start_time = time.time()
-        response_f = stub.GetActivationFloat(TensorTransmit_pb2.Layer_f(layer_index=0))
+        response_f = stub.GetActivationFloat(TensorTransmit_pb2.TensorRequest_f(n_tensors=n_tensors_f))
         latency_f = time.time() - start_time
         shape_f = tuple(int(x.strip()) for x in response_f.shape_f.strip("()").split(","))
         tensor_f = torch.tensor(np.reshape(response_f.tensor, shape_f))
 
         # Transmission with raw bytes
         start_time = time.time()
-        response_b = stub.GetActivationByte(TensorTransmit_pb2.Layer_b(layer_index=0, desired_dtype='float64'))
+        response_b = stub.GetActivationByte(TensorTransmit_pb2.TensorRequest_b(n_tensors=n_tensors_b, desired_dtype=dtype))
         latency_b = time.time() - start_time
         shape_b = tuple(int(x.strip()) for x in response_b.shape_b.strip("()").split(","))
         array_b = np.frombuffer(response_b.buffer, response_b.dtype)
         tensor_b = torch.tensor(np.reshape(array_b, shape_b))
 
-    print("The Tensor is received successfully! The size of received tensor: " + response_f.shape_f)
+    print("The Tensor is received successfully!")
+    print("Received size of numerical data: ", response_f.shape_f)
+    print("Received size of raw byte: ", response_b.shape_b)
     print("The transmission latency of tensor transmission(", tensor_f.dtype, "): ", latency_f)
     print("The transmission latency of raw bytes transmission(", tensor_b.dtype, "): ", latency_b)
     return latency_f, latency_b
@@ -55,4 +57,4 @@ def run():
 
 if __name__ == "__main__":
     logging.basicConfig()
-    run()
+    run(2, 3, "float32")

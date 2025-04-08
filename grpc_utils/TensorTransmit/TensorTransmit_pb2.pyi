@@ -5,19 +5,19 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Optional as _Op
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class Layer_f(_message.Message):
-    __slots__ = ("layer_index",)
-    LAYER_INDEX_FIELD_NUMBER: _ClassVar[int]
-    layer_index: int
-    def __init__(self, layer_index: _Optional[int] = ...) -> None: ...
+class TensorRequest_f(_message.Message):
+    __slots__ = ("n_tensors",)
+    N_TENSORS_FIELD_NUMBER: _ClassVar[int]
+    n_tensors: int
+    def __init__(self, n_tensors: _Optional[int] = ...) -> None: ...
 
-class Layer_b(_message.Message):
-    __slots__ = ("layer_index", "desired_dtype")
-    LAYER_INDEX_FIELD_NUMBER: _ClassVar[int]
+class TensorRequest_b(_message.Message):
+    __slots__ = ("n_tensors", "desired_dtype")
+    N_TENSORS_FIELD_NUMBER: _ClassVar[int]
     DESIRED_DTYPE_FIELD_NUMBER: _ClassVar[int]
-    layer_index: int
+    n_tensors: int
     desired_dtype: str
-    def __init__(self, layer_index: _Optional[int] = ..., desired_dtype: _Optional[str] = ...) -> None: ...
+    def __init__(self, n_tensors: _Optional[int] = ..., desired_dtype: _Optional[str] = ...) -> None: ...
 
 class ActivationFloat(_message.Message):
     __slots__ = ("tensor", "shape_f")

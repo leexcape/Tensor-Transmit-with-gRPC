@@ -37,12 +37,12 @@ class TensorTransmitStub(object):
         """
         self.GetActivationFloat = channel.unary_unary(
                 '/TensorTransmit.TensorTransmit/GetActivationFloat',
-                request_serializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.Layer_f.SerializeToString,
+                request_serializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.TensorRequest_f.SerializeToString,
                 response_deserializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.ActivationFloat.FromString,
                 _registered_method=True)
         self.GetActivationByte = channel.unary_unary(
                 '/TensorTransmit.TensorTransmit/GetActivationByte',
-                request_serializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.Layer_b.SerializeToString,
+                request_serializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.TensorRequest_b.SerializeToString,
                 response_deserializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.ActivationByte.FromString,
                 _registered_method=True)
 
@@ -69,12 +69,12 @@ def add_TensorTransmitServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetActivationFloat': grpc.unary_unary_rpc_method_handler(
                     servicer.GetActivationFloat,
-                    request_deserializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.Layer_f.FromString,
+                    request_deserializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.TensorRequest_f.FromString,
                     response_serializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.ActivationFloat.SerializeToString,
             ),
             'GetActivationByte': grpc.unary_unary_rpc_method_handler(
                     servicer.GetActivationByte,
-                    request_deserializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.Layer_b.FromString,
+                    request_deserializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.TensorRequest_b.FromString,
                     response_serializer=grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.ActivationByte.SerializeToString,
             ),
     }
@@ -104,7 +104,7 @@ class TensorTransmit(object):
             request,
             target,
             '/TensorTransmit.TensorTransmit/GetActivationFloat',
-            grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.Layer_f.SerializeToString,
+            grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.TensorRequest_f.SerializeToString,
             grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.ActivationFloat.FromString,
             options,
             channel_credentials,
@@ -131,7 +131,7 @@ class TensorTransmit(object):
             request,
             target,
             '/TensorTransmit.TensorTransmit/GetActivationByte',
-            grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.Layer_b.SerializeToString,
+            grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.TensorRequest_b.SerializeToString,
             grpc__utils_dot_TensorTransmit_dot_TensorTransmit__pb2.ActivationByte.FromString,
             options,
             channel_credentials,

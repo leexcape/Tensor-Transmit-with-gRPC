@@ -6,7 +6,7 @@ latency_record_b = []
 runs = 100
 
 for i in range(runs):
-    latency_f, latency_b = run()
+    latency_f, latency_b = run(1,3, "int8")
     latency_record_f.append(latency_f)
     latency_record_b.append(latency_b)
 

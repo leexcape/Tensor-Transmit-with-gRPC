@@ -25,12 +25,14 @@ from grpc_utils.TensorTransmit import TensorTransmit_pb2_grpc
 activation_list = [torch.rand((197, 768)) for i in range(12)]
 class TensorTransmit(TensorTransmit_pb2_grpc.TensorTransmitServicer):
     def GetActivationFloat(self, request, context):
-        flat_tensor = activation_list[request.layer_index].cpu().flatten().numpy()
-        tensor_shape = str(activation_list[request.layer_index].cpu().numpy().shape)
+        stack_tensor = torch.stack(activation_list[:request.n_tensors], dim=0).cpu()
+        flat_tensor = stack_tensor.flatten().numpy()
+        tensor_shape = str(stack_tensor.numpy().shape)
         return TensorTransmit_pb2.ActivationFloat(tensor=flat_tensor, shape_f=tensor_shape)
 
     def GetActivationByte(self, request, context):
-        flat_tensor = activation_list[request.layer_index].cpu().flatten().numpy()
+        stack_tensor = torch.stack(activation_list[:request.n_tensors], dim=0).cpu()
+        flat_tensor = stack_tensor.flatten().numpy()
         if request.desired_dtype == "float16":
             flat_tensor = flat_tensor.astype(np.float16)
         elif request.desired_dtype == "int8":
@@ -39,7 +41,7 @@ class TensorTransmit(TensorTransmit_pb2_grpc.TensorTransmitServicer):
         print("desired datatype: ", request.desired_dtype)
         print("Actual datatype: ", flat_tensor.dtype)
         flat_tensor_byte = flat_tensor.tobytes()
-        tensor_shape = str(activation_list[request.layer_index].cpu().numpy().shape)
+        tensor_shape = str(stack_tensor.numpy().shape)
         return TensorTransmit_pb2.ActivationByte(buffer=flat_tensor_byte, shape_b=tensor_shape, dtype=str(flat_tensor.dtype))
 
 
